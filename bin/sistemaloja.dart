@@ -6,7 +6,8 @@ void main() {
   ProdutoFisico produtoFisico = ProdutoFisico(2.0, 0013, 'cor clara', 3.50);
   produtoFisico.CalcularFrete();
 
-  ProdutoVirtual produtoVirtual = ProdutoVirtual(5, false, 009, 'cor neutra', 4.20);
+  ProdutoVirtual produtoVirtual =
+      ProdutoVirtual(5, false, 009, 'cor neutra', 4.20);
   produtoVirtual.VerificarEnvioGratis();
 
   CarrinhoDeCompras carrinho = CarrinhoDeCompras();
@@ -15,6 +16,7 @@ void main() {
   carrinho.addProdutos(produtoVirtual);
   carrinho.ValorTotal();
 }
+
 // class Pai produto
 class Produto {
   int codigo;
@@ -27,6 +29,7 @@ class Produto {
     print(
         'o produto tem o $codigo com a descricao $descricao no valor de $preco em reais');
   }
+
   void add(Produto produto) {}
 
   void remove(Produto produto) {}
@@ -37,6 +40,7 @@ class ProdutoFisico extends Produto {
 
   ProdutoFisico(this.peso, int codigo, String descricao, double preco)
       : super(codigo, descricao, preco);
+
 // método para calcular o Frete - recebe dados do usuario
   void CalcularFrete() {
     print('Qual é a distancia em KM?');
@@ -44,9 +48,10 @@ class ProdutoFisico extends Produto {
     if (inputDis != null) {
       int Distancia = int.parse(inputDis);
       double? valorFrete = funcFrete(Distancia);
-      print('o valor do frete do produto é $valorFrete');
+      print('o valor do frete do produto fisico é $valorFrete');
     }
   }
+
 // função para calcular o frete
   double? funcFrete(int Distancia) {
     return Distancia * 0.01;
@@ -64,10 +69,10 @@ class ProdutoVirtual extends Produto {
   void VerificarEnvioGratis() {
     if (tamanho <= 10) {
       isEnvioGratis = true;
-      print('O envio é grátis.');
+      print('O envio é grátis do produto virtual.');
     } else {
       isEnvioGratis = false;
-      print('O envio não é grátis você irá pagar.');
+      print('O envio não é grátis, você irá pagar.');
     }
   }
 }
@@ -75,17 +80,21 @@ class ProdutoVirtual extends Produto {
 class CarrinhoDeCompras {
   List<dynamic> produtos = [];
 
+  // Método para remover produtos do carrinho
   void addProdutos(Produto produto) {
     produtos.add(produto);
   }
 
+// Método para calcular o valor total dos produtos no carrinho
   void ValorTotal() {
-  double total = 0;
-  for (var p in produtos) {
-  total += p.preco;
+    double total = 0;
+    for (var p in produtos) {
+      total += p.preco;
+    }
+    print('O valor total dos produtos é: $total');
   }
-  print('O valor total dos produtos é: $total');
-}
+
+  // Método para remover produtos do carrinho
   void removeProdutos(Produto produto) {
     produto.remove(produto);
   }
