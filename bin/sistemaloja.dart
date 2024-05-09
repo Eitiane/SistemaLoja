@@ -1,14 +1,26 @@
 import 'dart:io';
 void main(){
-Produto(0012, 'cor escura' , 2.90);
+Produto produto = Produto(0012, 'cor escura' , 2.90);
+produto.printProduto();
 }
-class Produto {
+class Produto implements CarrinhoDeCompras {
   int codigo;
   String descricao;
   double preco;
   Produto(this.codigo, this.descricao, this.preco);
   void printProduto(){
     print('o produto tem o $codigo com a descricao $descricao no valor de $preco em reais');
+  }
+  @override
+  void addProdutos(){
+  }
+  @override
+  void ValorTotal() {
+
+  }
+  @override
+  void removeProdutos() {
+
   }
 }
 class ProdutoFisico extends Produto{
@@ -24,6 +36,24 @@ class ProdutoFisico extends Produto{
     }
   }
   double? funcFrete(int Distancia){
+    return
     Distancia * 0.01;
   }
+}
+class ProdutoVirtual extends Produto{
+  int tamanho;
+  bool isEnvioGratis;
+  ProdutoVirtual(this.tamanho, this.isEnvioGratis, int codigo, String descricao, double preco): super (codigo, descricao, preco);
+  void VerificarEnvioGratis(){
+    if(tamanho <= 10){
+      isEnvioGratis = true;
+    }else{
+      isEnvioGratis = false;
+    }
+  }
+}
+abstract class CarrinhoDeCompras{
+  void addProdutos();
+  void removeProdutos();
+  void ValorTotal();
 }
